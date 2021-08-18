@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/style.css">
+<title>男気じゃんけん</title>
+</head>
+
+
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="header">
+  <p class="logo">
+    <img src="img/otokogi_logo.jpg" class="logo_img" alt="">
+    <p class="logo_m">男気じゃんけん</p>
+  </p>
+  <div class="gross">
+    <div class="gross_message">お支払い総額</div>
+    <div class="gross_cost" id="gross_cost">0円</div>
+  </div>
+
+ 
+</div>
+
+<audio id="bgm_start" preload>
+  <source src="music/start.mp3" type="audio/mp3">
+</audio>
+
+<audio id="bgm_hoi" preload>
+  <source src="music/hoi.mp3" type="audio/mp3">
+</audio>
+
+<audio id="bgm_aiko" preload>
+  <source src="music/aiko.mp3" type="audio/mp3">
+</audio>
+
+
+
+<main>
+  <div class="btn_s_wrapper" id="btn_s_wrapper">
+    <button class="btn_start" id="btn_start"></button>
+  </div>
+  <div class="status">
+    <div class="status_aite">
+      <div class="count" id="count"></div>
+      <div class="aite_img" id="aite_img"></div>
+    </div>
+    <div class="status_buy">
+      <div class="buy_name" id="buy_name"></div>
+      <div class="buy_img" id="buy_img"><img src= "img/hand_2.jpg" width="200"></div>
+    </div>
+  </div>
+
+  <div class="start_m" id="start_m">男気じゃんけん、じゃんけん...</div>
+  <div class="btn_wrapper" id="btn_wrapper">
+  <button onclick="R_click(0);" class="btn btn_gu" id="btn_gu">グー</button>
+  <button onclick="R_click(1);" class="btn btn_cho" id="btn_cho">チョキ</button>
+  <button onclick="R_click(2);" class="btn btn_pa" id="btn_pa">パー</button>
+  </div>
+  <ul class="hand_name" id="hand_name">
+    <li id = "p_hand">あなた</li>
+    <li id = "a_hand">相手</li>
+  </ul>
+  <ul class="hand_img" id="hand_img">
+    <li id = "p_hand_img"></li>
+    <li id = "a_hand_img"></li>
+  </ul>
+  <div id = "janken_result" class="result_m"></div>
+  <div class="btn_next">
+  <button class="btn_count" id="next_count"></button>
+  </div>
+
+</main>
+<footer>presented by 『みなさんのおかげでした』</footer>
+
+<!-- モーダル -->
+<div class="modal js-modal">
+  <div class="modal_bg js-modal-close"></div>
+  <div class="modal_content">
+      <div class="end_message">支払総額が1億円を超えました。破産です。お疲れ様でした。</div>
+      <a class="js-modal-close" href="">New Game</a>
+  </div>
+</div>
+
+<script>
+
+  //相手は誰かランダムで選択
+  let vs= 1;
+  function aite_choice(){
+    let r_aite = Math.ceil(Math.random()*7);
+    if (r_aite==1){
+      aite='石橋';
+      aite_img = '<img src= "img/aite_0.jpg">';
+    }if (r_aite==2){      
+      aite="有吉";
+      aite_img = '<img src= "img/aite_1.jpg">';
+    }if (r_aite==3){
+      aite=aite="矢作";
+      aite_img = '<img src= "img/aite_2.jpg">';
+    }if (r_aite==4){
+      aite="清原";
+      aite_img = '<img src= "img/aite_3.jpg">';
+    }if (r_aite==5){
+      aite="哀川";
+      aite_img = '<img src= "img/aite_4.jpg">';
+    }if (r_aite==6){
+      aite="日村";
+      aite_img = '<img src= "img/aite_5.jpg">';
+    }if (r_aite==7){
+    aite="篠原";
+    aite_img = '<img src= "img/aite_6.jpg">';
+    }
+    $("#count").text(vs+"回戦"+"  "+"相手は『" + aite + "』"); 
+    $("#aite_img").html(aite_img);
+    }
+  aite_choice();
+
+  //男気購入品をランダムで選択
+  let gross_cost = 0;
+  function buy_item_choice(){
+    let r_item = Math.ceil(Math.random()*10);
+    if (r_item==1 || r_item==2){
+      item_name='時計 (100万円)';
+      item_cost=1000000;
+      item_img = '<img src= "img/item_0.jpg" height=160px >';
+    }
+    if (r_item==3 || r_item==4){
+      item_name="ロールスロイス (5000万円)";
+      item_cost=50000000;
+      item_img = '<img src= "img/item_1.jpg">';
+    }
+    if (r_item==5||r_item==6||r_item==7){
+      item_name="かに10杯 (10万円)";
+      item_cost=100000;
+      item_img = '<img src= "img/item_2.jpg">';
+    }
+    if (r_item==8){
+      item_name="絵画 (50万円)";
+      item_cost=500000;
+      item_img = '<img src= "img/item_3.jpg">';
+    }
+    if (r_item==9 ||r_item==10){
+      item_name="家 (1億円)";
+      item_cost=100000000;
+      item_img = '<img src= "img/item_4.jpg">';
+    }
+    $("#buy_name").text("購入するのは『" + item_name + "』");
+    $("#buy_img").html(item_img);
+  }
+  buy_item_choice();
+  
+
+  document.getElementById("next_count").style.display="none";
+  document.getElementById("hand_name").style.display="none";
+  document.getElementById("hand_img").style.display="none";
+
+  //Startメッセージ、出し手ボタンを非表示にするfunction
+  function start_m_none(){
+    count.style.display ="none";
+    buy_name.style.display ="none";
+    document.getElementById("aite_img").style.display="none";
+    document.getElementById("buy_img").style.display="none";
+    start_m.style.display ="none";
+    document.getElementById("btn_wrapper").style.display="none";
+    }
+
+  //Startメッセージ等を表示するfunction
+  function janken_start(){
+    //何回戦かと、スタートメッセージを表示
+    count.style.display ="block";
+    buy_name.style.display ="block";
+    document.getElementById("aite_img").style.display="block";
+    document.getElementById("buy_img").style.display="block";
+    start_m.style.display ="block";
+    //ボタン表示
+    document.getElementById("btn_wrapper").style.display="flex";
+    //出し手の枠、結果、次ゲームへの遷移ボタンを非表示
+    document.getElementById("hand_name").style.display="none";
+    document.getElementById("hand_img").style.display="none";
+    janken_result.style.display ="none";
+    $("#count").text(vs+"回戦"+"  "+"相手は『" + aite + "』"); 
+    $("#aite_img").html(aite_img);
+    document.getElementById("next_count").style.display="none";
+  }
+
+  //ロード後、Startメッセージ時は非表示にしておき、ボタン押すと表示
+  start_m_none();
+  $("#btn_start").html("スタート");
+  $("#btn_start").on("click",function(){
+    janken_start();
+    document.getElementById("btn_start").style.display="none";
+    document.getElementById("btn_s_wrapper").style.display="none";
+    setTimeout("bgm_start.play()",600);
+  });
+
+  // じゃんけんのfunction
+  function R_click(p_hand_r){
+    let p_hand=["グー","チョキ","パー"];
+    let a_hand=["グー","チョキ","パー"];
+    let a_hand_r=Math.floor(Math.random()*3);
+    document.getElementById("hand_name").style.display="table";
+    document.getElementById("hand_img").style.display="table";
+
+
+    //プレーヤーの出し手画像
+    if(p_hand_r==0){
+      p_hand_img = '<img src= "img/hand_0.jpg" width="200">';
+    }else if(p_hand_r==1){
+      p_hand_img = '<img src= "img/hand_1.jpg" width="200">';
+    }if (p_hand_r==2){
+      p_hand_img = '<img src= "img/hand_2.jpg" width="200">';
+    }
+
+    //プレーヤーの出し手画像
+    if(a_hand_r==0){
+      a_hand_img = '<img src= "img/hand_0.jpg" width="200">';
+    }else if(a_hand_r==1){
+      a_hand_img = '<img src= "img/hand_1.jpg" width="200">';
+    }if(a_hand_r==2){
+      a_hand_img = '<img src= "img/hand_2.jpg" width="200">';
+    }
+    
+    //勝敗判定
+    if (p_hand_r == a_hand_r){
+      result = "あいこです";
+      document.getElementById("next_count").style.display="none";
+      $("#start_m").html("あいこで...");
+      setTimeout("bgm_aiko.play()",700);
+    }else if ((p_hand_r + 3 - a_hand_r)%3 == 2){
+      result = "勝ちました！ナイス男気！";
+      //勝ちの時は総額に購入額追加
+      gross_cost += item_cost;
+      gross_cost_display = gross_cost.toLocaleString();
+      $("#gross_cost").html(gross_cost_display+"円");
+    }else {
+      result = "負けました。ケツバット...！";
+    }
+  
+    //モーダル
+    if (gross_cost>=100000000){
+      $('.js-modal').fadeIn();
+    }
+    $('.js-modal-close').on('click',function(){
+        $('.js-modal').fadeOut();
+        location.reload();
+    });
+
+    //あいこ以外
+    if (p_hand_r != a_hand_r){
+      $("#start_m").html("男気じゃんけん、じゃんけん...");
+      //Next表示
+      vs+=1;
+      document.getElementById("next_count").style.display="block";
+      $("#next_count").html(vs+"回戦へ");
+      //相手変更、購入品変更
+      aite_choice();
+      buy_item_choice();
+      start_m_none();
+      janken_result.style.display ="block";
+      $("#janken_result").html(result);   
+    }
+
+    $("#p_hand_img").html(p_hand_img);
+    $("#a_hand_img").html(a_hand_img);
+
+
+  };
+
+  //じゃんけんスタート画面表示
+  $("#next_count").on("click",function(){
+  janken_start()
+  });
+
+  //音声
+  const bgm_start = document.querySelector("#bgm_start"); 
+  const btn_start  = document.querySelector("#next_count");
+  btn_start.addEventListener("click", ()=>{
+  setTimeout("bgm_start.play()",600);
+  });
+
+  const bgm_hoi = document.querySelector("#bgm_hoi"); 
+  const btn_gu  = document.querySelector("#btn_gu");
+  btn_gu.addEventListener("click", ()=>{
+  bgm_hoi.play();
+  })
+  const btn_cho  = document.querySelector("#btn_cho");
+  btn_cho.addEventListener("click", ()=>{
+  bgm_hoi.play();
+  })
+  const btn_pa  = document.querySelector("#btn_pa");
+  btn_pa.addEventListener("click", ()=>{
+  bgm_hoi.play();
+  });
+
+</script>
+</body>
+</html>

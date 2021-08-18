@@ -1,0 +1,319 @@
+
+.header{
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  /* justify-content: center; */
+}
+
+
+.logo_img{
+  width: 70px;
+  margin-right: 15px;
+}
+
+.p{
+  margin: 0;
+}
+
+.logo{
+  margin-left: 20px;
+}
+
+.logo_m{
+  font-size: 30px;
+  font-weight: bold;
+  padding: auto;
+  font-family: serif;
+}
+
+.gross{
+  text-align: right;
+  margin: auto 40px auto auto;
+}
+
+.gross_message{
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+.gross_cost{
+  align-items: center;
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+
+
+footer{
+  background-color: #fafafa;
+  font-size: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  font-family: serif;
+}
+
+.status{
+  display: flex;
+  width: 800px;
+  margin: 0 auto;
+}
+
+.status_aite{
+  width:50%;
+  text-align: center;
+}
+
+.status_buy{
+  width: 50%;
+  text-align: center;
+}
+
+/* 対戦相手表示 */
+#count {
+  position: relative;
+  padding: 5px 5px 5px 42px;
+  background: black;
+  font-size: 18px;
+  color: white;
+  margin-left: -33px;
+  line-height: 1.3;
+  z-index:-1;
+  width: 100%;
+  text-align: center;
+}
+
+#count:before {
+  position: absolute;
+  content: '';
+  left: -2px;
+  top: -2px;
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: solid 40px white;
+  border-bottom: solid 79px transparent;
+  z-index:-2
+}
+
+/* CSSアニメーションの指定 */
+#count {
+  animation: SlideIn 1s;
+  font-family: serif;
+}
+#aite_img {
+  animation: SlideIn 1s;
+}
+
+/* 対戦相手表示 */
+.buy_name {
+  position: relative;
+  padding: 5px 5px 5px 42px;
+  background: black;
+  font-size: 18px;
+  color: white;
+  margin-left: -33px;
+  line-height: 1.3;
+  z-index:-1;
+  width: 100%;
+  text-align: center;
+}
+
+.buy_name:after {
+  position: absolute;
+  content: '';
+  right: -3px;
+  top: -7px;
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: solid 40px transparent;
+  border-bottom: solid 79px white;
+  z-index: -1;
+}
+
+/* CSSアニメーションの指定 */
+.buy_name {
+  animation: SlideIn 1s forwards;
+  font-family: serif;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transform: translateX(64px);
+}
+.buy_img {
+  animation: SlideIn 1s forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transform: translateX(64px);
+}
+
+@keyframes SlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+ul{
+  padding: 0;
+  display:table;  /* 定義 */
+  table-layout: fixed;
+  width:800px;
+  margin: 0 auto;
+}
+li{
+  list-style-type:none;
+  border: 1px solid #666;
+  background-color: #FFF;
+  display:table-cell;  /* 定義 */
+  text-align: center;
+  cursor: pointer;
+}
+
+.hand_name{
+  border-top: 1px solid #000000;
+  margin-top: 40px;
+}
+
+.hand_img{
+  margin-bottom:50px;
+}
+
+.start_m{
+  text-align: center;
+  margin: 40px 0  20px;
+  font-size: 24px;
+  font-family: serif;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding: 0 55px;
+}
+
+.start_m:before, .start_m:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 125px;
+  height: 1px;
+  background-color: black;
+}
+
+.start_m:before {
+  left:175px;
+}
+.start_m:after {
+  right: 175px;
+}
+
+.btn_wrapper{
+  margin: 40px 0 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn{
+  color: #000;
+  background-color: #fff100;
+  /* border-bottom: 5px solid #ccc100; */
+  box-shadow: 0 5px #ccc100;
+  height: 40px;
+  width: 60px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.btn:hover {
+  /* margin-top: 3px; */
+  box-shadow: none;
+  transform: translate(0, 3px);
+  color: #000;
+  background: #fff20a;
+  border-bottom: 2px solid #ccc100;
+}
+.btn_cho{
+  margin:0 30px ;
+}
+
+.result_m{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: serif;
+}
+
+.next_count_m{
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.btn_next{
+  margin: 20px 0 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn_count{
+  color: #000;
+  background-color: #fff100;
+  box-shadow: 0 5px #ccc100;
+  height: 40px;
+  width: 100px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn_s_wrapper{
+  margin: 80px 0 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn_start{
+  color: #000;
+  background-color: #fff100;
+  box-shadow: 0 5px #ccc100;
+  height: 40px;
+  width: 100px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.modal{
+  display: none;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.modal_bg{
+  background: rgba(0,0,0,0.8);
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+}
+.modal_content{
+  background: #fff;
+  left: 50%;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 60%;
+}
+
+.end_message{
+  font-size: 20px;
+  color: red;
+  padding-bottom: 10px;
+}
